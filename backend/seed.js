@@ -12,12 +12,13 @@ const Fee = require('./models/fee.model');
 const Complaint = require('./models/complaint.model');
 const Setting = require('./models/setting.model');
 
+require("dotenv").config();
+
 // ===========================================
 // 🔥 IMPORTANT: USE SAME URI AS server.js
 // ===========================================
 
-const dbURI =
-"mongodb+srv://bhuvanbapat_db_user:hms_cloud_setup*@cluster0.hw9rlka.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const dbURI = process.env.MONGODB_URI;
 
 
 // ===========================================
@@ -140,7 +141,7 @@ async function seed() {
             student: student._id
         });
 
-       	if (!complaint) {
+        if (!complaint) {
             complaint = new Complaint({
                 student: student._id,
                 studentId: student.studentId,

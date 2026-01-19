@@ -6,9 +6,10 @@ const mongoose = require("mongoose");
 const User = require("./models/user.model");
 const Student = require("./models/student.model");
 
+require("dotenv").config();
+
 // ⚠️ Use the SAME URI as in server.js
-const dbURI =
-  "mongodb+srv://hms_user:HmsProject2024@cluster0.hw9rlka.mongodb.net/hms?retryWrites=true&w=majority&appName=Cluster0";
+const dbURI = process.env.MONGODB_URI;
 
 // ---------- helpers ----------
 function generatePassword(length = 10) {
