@@ -1,0 +1,53 @@
+# ================================
+# Dependencies
+# ================================
+node_modules/
+
+# ================================
+# Environment Variables (SECRETS!)
+# ================================
+.env
+.env.local
+.env.development
+.env.production
+*.env
+
+# ================================
+# Uploaded User Data
+# ================================
+uploads/
+
+# ================================
+# IDE & Editor Settings
+# ================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ================================
+# Operating System Files
+# ================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ================================
+# Logs & Debug Files
+# ================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ================================
+# Build Outputs
+# ================================
+dist/
+build/
+.cache/
+
+# ================================
+# Optional: Lock files (some prefer to include these)
+# ================================
+# package-lock.json

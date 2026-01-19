@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Analytics - HMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Glass / theme CSS -->
+  <link rel="stylesheet" href="css/modern-style.css?v=6.0" />
+
+  <!-- Chart.js (for analytics) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Three.js for WebGL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="min-h-screen dashboard-body">
+  <!-- WebGL Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- TOPBAR -->
+  <header class="topbar glass flex items-center justify-between">
+    <div class="topbar-title flex items-center gap-2">
+      <span
+        class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 text-sm font-semibold">
+        HMS
+      </span>
+      <span class="text-sm sm:text-base font-semibold tracking-wide">
+        Admin Analytics
+      </span>
+    </div>
+
+    <div class="topbar-actions flex items-center gap-2">
+      <button class="icon-btn" onclick="window.location.href='admin.html'">
+        ⬅ <span class="hidden sm:inline">Back to Dashboard</span>
+      </button>
+      <button class="icon-btn" id="themeToggle">
+        <button class="theme-toggle-enterprise" id="themeToggle" aria-label="Toggle light/dark mode">
+          <span class="theme-icon" aria-hidden="true">🌓</span>
+          <span class="hidden sm:inline">Theme</span>
+        </button>
+      </button>
+      <button class="icon-btn" id="logoutBtn">
+        ⎋ <span class="hidden sm:inline">Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <main class="dashboard-layout">
+    <!-- We don't need sidebar here, full-width analytics page -->
+    <section class="content-area full">
+      <div id="analytics-root" class="flex flex-col gap-3"></div>
+    </section>
+  </main>
+
+  <!-- CORE + SERVICES -->
+  <script src="js/services/authService.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+
+  <script src="js/services/dashboardService.js"></script>
+  <script src="js/services/studentService.js"></script>
+  <script src="js/services/roomService.js"></script>
+  <script src="js/services/feeService.js"></script>
+  <script src="js/services/complaintService.js"></script>
+  <script src="js/services/leaveService.js"></script>
+  <script src="js/services/messMenuService.js"></script>
+
+  <!-- Analytics logic -->
+  <script src="js/adminAnalytics.js"></script>
+
+  <!-- WebGL Animations -->
+  <script src="js/webgl-animations.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard - HMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4',
+              400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e',
+              800: '#115e59', 900: '#134e4a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/modern-style.css?v=5.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="min-h-screen dashboard-body">
+  <canvas id="webgl-canvas"></canvas>
+
+  <div class="dashboard-wrapper">
+    <header class="topbar glass flex items-center justify-between">
+      <div class="topbar-title flex items-center gap-2">
+        <span
+          class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-teal-500/20 text-teal-400 text-sm font-semibold">HMS</span>
+        <span class="text-sm sm:text-base font-semibold tracking-wide">Admin Dashboard</span>
+      </div>
+      <div class="topbar-actions flex items-center gap-2">
+        <button class="icon-btn relative" id="notifBtn" title="Notifications">
+          🔔 <span id="notifBadge" class="hidden notification-badge">0</span>
+        </button>
+        <button class="theme-toggle-enterprise" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon" aria-hidden="true">🌓</span>
+          <span class="hidden sm:inline">Theme</span>
+        </button>
+        <button class="icon-btn" id="logoutBtn">⎋ <span class="hidden sm:inline">Logout</span></button>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <aside class="sidebar glass">
+        <div class="sidebar-section">
+          <ul>
+            <li data-section="overview" class="active">📊 Overview</li>
+            <li data-section="students">👥 Students</li>
+            <li data-section="rooms">🏠 Rooms</li>
+            <li data-section="room-requests">📋 Room Requests</li>
+            <li data-section="fees">💰 Fees</li>
+            <li data-section="complaints">⚠️ Complaints</li>
+            <li data-section="leaves">📝 Leave Requests</li>
+            <li data-section="mess">🍽️ Mess Menu</li>
+            <li data-section="announcements">📢 Announcements</li>
+            <li data-section="notifications">🔔 Notifications</li>
+          </ul>
+        </div>
+      </aside>
+
+
+      <main class="main-content">
+        <div id="admin-root"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/webgl-animations.js?v=5.0"></script>
+
+  <script src="js/services/authService.js?v=5.0"></script>
+  <script src="js/ui.js?v=5.0"></script>
+  <script src="js/api.js?v=5.0"></script>
+
+  <script src="js/services/studentService.js?v=5.0"></script>
+  <script src="js/services/roomService.js?v=5.0"></script>
+  <script src="js/services/feeService.js?v=5.0"></script>
+  <script src="js/services/complaintService.js?v=5.0"></script>
+  <script src="js/services/announcementService.js?v=5.0"></script>
+  <script src="js/services/messMenuService.js?v=5.0"></script>
+  <script src="js/services/dashboardService.js?v=5.0"></script>
+  <script src="js/services/leaveService.js?v=5.0"></script>
+  <script src="js/services/notificationService.js?v=5.0"></script>
+  <script src="js/services/roomRequestService.js?v=5.0"></script>
+
+  <script src="js/components.js?v=5.0"></script>
+  <script src="js/admin.v2.js?v=5.0"></script>
+</body>
+
+</html>

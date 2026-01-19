@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Dashboard - HMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Modern CSS -->
+  <link rel="stylesheet" href="css/modern-style.css?v=5.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Three.js for WebGL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="dashboard-body">
+  <!-- WebGL Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+  <!-- Animated Background for Dashboard -->
+  <div class="dashboard-animated-bg"></div>
+  <script src="js/webgl-animations.js"></script>
+  <header class="topbar">
+    <div class="topbar-title">
+      <span>🏨 HMS Student Dashboard</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="theme-toggle-enterprise" id="themeToggle" aria-label="Toggle light/dark mode">
+        <span class="theme-icon" aria-hidden="true">🌓</span>
+        <span class="hidden sm:inline">Theme</span>
+      </button>
+      <button class="icon-btn" id="logoutBtn">⎋ Logout</button>
+    </div>
+  </header>
+
+  <main class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Menu</h3>
+        <ul>
+          <li class="active" data-section="profile">Profile</li>
+          <li data-section="fees">Fees</li>
+          <li data-section="room-request">Room Request</li>
+          <li data-section="complaints">Complaints</li>
+          <li data-section="leaves">Leaves</li>
+          <li data-section="mess">Mess Menu</li>
+          <li data-section="attendance">Attendance</li>
+          <li data-section="announcements">Announcements</li>
+          <li data-section="notifications">Notifications</li>
+        </ul>
+      </div>
+    </aside>
+    <section class="content-area">
+      <div id="student-root"></div>
+    </section>
+  </main>
+
+  <script src="js/services/authService.js?v=5.0"></script>
+  <script src="js/ui.js?v=5.0"></script>
+  <script src="js/api.js?v=5.0"></script>
+
+  <script src="js/services/studentService.js?v=5.0"></script>
+  <script src="js/services/feeService.js?v=5.0"></script>
+  <script src="js/services/complaintService.js?v=5.0"></script>
+  <script src="js/services/announcementService.js?v=5.0"></script>
+  <script src="js/services/messMenuService.js?v=5.0"></script>
+  <script src="js/services/leaveService.js?v=5.0"></script>
+  <script src="js/services/attendanceService.js?v=5.0"></script>
+  <script src="js/services/profileService.js?v=5.0"></script>
+  <script src="js/services/notificationService.js?v=5.0"></script>
+  <script src="js/services/roomService.js?v=5.0"></script>
+  <script src="js/services/roomRequestService.js?v=5.0"></script>
+
+  <script src="js/components.js?v=5.0"></script>
+  <script src="js/student.js?v=5.0"></script>
+</body>
+
+</html>

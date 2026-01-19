@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMS Dev Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Reuse your existing style + theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+        }
+        h1, h2 {
+            margin-bottom: 8px;
+        }
+        .section {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin: 6px 0 2px;
+        }
+        input, select, button, textarea {
+            font-family: inherit;
+            font-size: 14px;
+            padding: 6px;
+            margin-bottom: 6px;
+        }
+        button {
+            cursor: pointer;
+            border-radius: 6px;
+            border: none;
+        }
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+        }
+        .btn-danger {
+            background: #e53935;
+            color: white;
+        }
+        .output {
+            background: #111;
+            color: #0f0;
+            padding: 8px;
+            border-radius: 6px;
+            max-height: 200px;
+            overflow: auto;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .tag {
+            display: inline-block;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+        .warning {
+            color: #e53935;
+            font-weight: 600;
+        }
+        hr {
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>HMS Dev Console</h1>
+    <p class="warning">
+        For developer use only. This replaces Postman.  
+        First login as <strong>admin</strong> via <code>admin-login.html</code>, then open this page in the same browser.
+    </p>
+
+    <div class="tag">DB: MongoDB Atlas (real-time)</div>
+
+    <hr>
+
+    <!-- ===================== USERS (LOGIN) ===================== -->
+    <div class="section">
+        <h2>Users (Login Credentials)</h2>
+        <p>Use this to create or update admin/student login accounts. Passwords will be hashed automatically.</p>
+        <form id="userForm">
+            <label for="u_username">Username</label>
+            <input id="u_username" type="text" placeholder="e.g. admin, stu001" required>
+
+            <label for="u_password">Password</label>
+            <input id="u_password" type="password" placeholder="e.g. admin123" required>
+
+            <label for="u_role">Role</label>
+            <select id="u_role">
+                <option value="admin">admin</option>
+                <option value="student">student</option>
+            </select>
+
+            <label for="u_studentId">Student ID (only if role = student)</label>
+            <input id="u_studentId" type="text" placeholder="e.g. STU001">
+
+            <button type="submit" class="btn-primary">Save User (Register / Update)</button>
+        </form>
+        <div id="userOutput" class="output"></div>
+    </div>
+
+    <!-- ===================== STUDENTS ===================== -->
+    <div class="section">
+        <h2>Students</h2>
+        <p>Create or update student records. Room must match an existing roomId like A101.</p>
+        <form id="studentForm">
+            <label for="s_studentId">Student ID</label>
+            <input id="s_studentId" type="text" placeholder="e.g. STU001" required>
+
+            <label for="s_name">Name</label>
+            <input id="s_name" type="text" placeholder="Student Name" required>
+
+            <label for="s_room">Room (optional)</label>
+            <input id="s_room" type="text" placeholder="e.g. A101">
+
+            <button type="submit" class="btn-primary">Create Student</button>
+        </form>
+
+        <button id="btnListStudents" type="button">List All Students</button>
+        <div id="studentOutput" class="output"></div>
+    </div>
+
+    <!-- ===================== ROOMS ===================== -->
+    <div class="section">
+        <h2>Rooms</h2>
+        <p>Manage hostel rooms.</p>
+        <form id="roomForm">
+            <label for="r_roomId">Room ID</label>
+            <input id="r_roomId" type="text" placeholder="e.g. A101" required>
+
+            <label for="r_capacity">Capacity</label>
+            <input id="r_capacity" type="number" min="1" value="2" required>
+
+            <label for="r_status">Status</label>
+            <select id="r_status">
+                <option value="available">available</option>
+                <option value="occupied">occupied</option>
+                <option value="maintenance">maintenance</option>
+            </select>
+
+            <button type="submit" class="btn-primary">Create / Update Room</button>
+        </form>
+
+        <button id="btnListRooms" type="button">List All Rooms</button>
+        <div id="roomOutput" class="output"></div>
+    </div>
+
+    <!-- ===================== FEES ===================== -->
+    <div class="section">
+        <h2>Fees</h2>
+        <p>Create a fee record for a student (by Student ID).</p>
+        <form id="feeForm">
+            <label for="f_studentId">Student ID</label>
+            <input id="f_studentId" type="text" placeholder="e.g. STU001" required>
+
+            <label for="f_month">Month Label</label>
+            <input id="f_month" type="text" placeholder="e.g. April 2025" required>
+
+            <label for="f_amount">Amount</label>
+            <input id="f_amount" type="number" min="0" value="5000" required>
+
+            <label for="f_status">Status</label>
+            <select id="f_status">
+                <option value="pending">pending</option>
+                <option value="paid">paid</option>
+                <option value="overdue">overdue</option>
+            </select>
+
+            <label for="f_dueDate">Due Date</label>
+            <input id="f_dueDate" type="date" required>
+
+            <button type="submit" class="btn-primary">Create Fee Record</button>
+        </form>
+
+        <button id="btnListFees" type="button">List All Fee Records</button>
+        <div id="feeOutput" class="output"></div>
+    </div>
+
+    <!-- ===================== COMPLAINTS ===================== -->
+    <div class="section">
+        <h2>Complaints</h2>
+        <p>Create a complaint for a student for testing.</p>
+        <form id="complaintForm">
+            <label for="c_studentId">Student ID</label>
+            <input id="c_studentId" type="text" placeholder="e.g. STU001" required>
+
+            <label for="c_issue">Issue</label>
+            <textarea id="c_issue" placeholder="Enter complaint..." rows="2" required></textarea>
+
+            <button type="submit" class="btn-primary">Create Complaint</button>
+        </form>
+
+        <button id="btnListComplaints" type="button">List All Complaints</button>
+        <div id="complaintOutput" class="output"></div>
+    </div>
+
+    <!-- ===================== ANNOUNCEMENTS (OPTIONAL) ===================== -->
+    <div class="section">
+        <h2>Announcements</h2>
+        <form id="announcementForm">
+            <label for="a_text">Text</label>
+            <textarea id="a_text" rows="2" placeholder="Announcement text..." required></textarea>
+            <button type="submit" class="btn-primary">Add Announcement</button>
+        </form>
+
+        <button id="btnListAnnouncements" type="button">List All Announcements</button>
+        <div id="announcementOutput" class="output"></div>
+    </div>
+
+    <!-- ===================== SCRIPTS ===================== -->
+    <script src="js/services/authService.js"></script>
+    <script src="js/api.js"></script>
+
+    <script>
+        // Simple helper to print JSON
+        function showOutput(elementId, data) {
+            const el = document.getElementById(elementId);
+            el.textContent = typeof data === 'string'
+                ? data
+                : JSON.stringify(data, null, 2);
+        }
+
+        // Warn if not logged in
+        if (!AuthService.isLoggedIn()) {
+            alert('Login as admin via admin-login.html first, then open dev-console.html.');
+        }
+
+        // =================== USERS FORM ===================
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const body = {
+                username: document.getElementById('u_username').value,
+                password: document.getElementById('u_password').value,
+                role: document.getElementById('u_role').value,
+                studentId: document.getElementById('u_studentId').value || undefined
+            };
+            try {
+                const res = await api.post('/auth/register', body);
+                showOutput('userOutput', res);
+            } catch (err) {
+                showOutput('userOutput', 'Error: ' + err.message);
+            }
+        });
+
+        // =================== STUDENTS FORM ===================
+        document.getElementById('studentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const body = {
+                studentId: document.getElementById('s_studentId').value.toUpperCase(),
+                name: document.getElementById('s_name').value,
+                room: document.getElementById('s_room').value || null
+            };
+            try {
+                const res = await api.post('/students', body);
+                showOutput('studentOutput', res);
+            } catch (err) {
+                showOutput('studentOutput', 'Error: ' + err.message);
+            }
+        });
+
+        document.getElementById('btnListStudents').addEventListener('click', async () => {
+            try {
+                const res = await api.get('/students');
+                showOutput('studentOutput', res);
+            } catch (err) {
+                showOutput('studentOutput', 'Error: ' + err.message);
+            }
+        });
+
+        // =================== ROOMS FORM ===================
+        document.getElementById('roomForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const body = {
+                roomId: document.getElementById('r_roomId').value.toUpperCase(),
+                capacity: Number(document.getElementById('r_capacity').value),
+                status: document.getElementById('r_status').value
+            };
+            try {
+                const res = await api.post('/rooms', body);
+                showOutput('roomOutput', res);
+            } catch (err) {
+                showOutput('roomOutput', 'Error: ' + err.message);
+            }
+        });
+
+        document.getElementById('btnListRooms').addEventListener('click', async () => {
+            try {
+                const res = await api.get('/rooms');
+                showOutput('roomOutput', res);
+            } catch (err) {
+                showOutput('roomOutput', 'Error: ' + err.message);
+            }
+        });
+
+        // =================== FEES FORM ===================
+        document.getElementById('feeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const studentId = document.getElementById('f_studentId').value.toUpperCase();
+            const month = document.getElementById('f_month').value;
+            const amount = Number(document.getElementById('f_amount').value);
+            const status = document.getElementById('f_status').value;
+            const dueDate = document.getElementById('f_dueDate').value;
+
+            try {
+                // Need to find the student by ID first
+                const students = await api.get('/students');
+                const stu = students.find(s => s.studentId === studentId);
+                if (!stu) {
+                    showOutput('feeOutput', 'Error: Student not found: ' + studentId);
+                    return;
+                }
+
+                const body = {
+                    student: stu._id,
+                    month,
+                    amount,
+                    status,
+                    dueDate: dueDate
+                };
+
+                const res = await api.post('/fees', body);
+                showOutput('feeOutput', res);
+            } catch (err) {
+                showOutput('feeOutput', 'Error: ' + err.message);
+            }
+        });
+
+        document.getElementById('btnListFees').addEventListener('click', async () => {
+            try {
+                const res = await api.get('/fees');
+                showOutput('feeOutput', res);
+            } catch (err) {
+                showOutput('feeOutput', 'Error: ' + err.message);
+            }
+        });
+
+        // =================== COMPLAINTS FORM ===================
+        document.getElementById('complaintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const studentId = document.getElementById('c_studentId').value.toUpperCase();
+            const issue = document.getElementById('c_issue').value;
+
+            try {
+                const students = await api.get('/students');
+                const stu = students.find(s => s.studentId === studentId);
+                if (!stu) {
+                    showOutput('complaintOutput', 'Error: Student not found: ' + studentId);
+                    return;
+                }
+
+                const body = {
+                    student: stu._id,
+                    studentId: studentId,
+                    issue
+                };
+
+                const res = await api.post('/complaints', body);
+                showOutput('complaintOutput', res);
+            } catch (err) {
+                showOutput('complaintOutput', 'Error: ' + err.message);
+            }
+        });
+
+        document.getElementById('btnListComplaints').addEventListener('click', async () => {
+            try {
+                const res = await api.get('/complaints');
+                showOutput('complaintOutput', res);
+            } catch (err) {
+                showOutput('complaintOutput', 'Error: ' + err.message);
+            }
+        });
+
+        // =================== ANNOUNCEMENTS ===================
+        document.getElementById('announcementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = document.getElementById('a_text').value;
+            try {
+                const body = { text };
+                const res = await api.post('/announcements', body);
+                showOutput('announcementOutput', res);
+            } catch (err) {
+                showOutput('announcementOutput', 'Error: ' + err.message);
+            }
+        });
+
+        document.getElementById('btnListAnnouncements').addEventListener('click', async () => {
+            try {
+                const res = await api.get('/announcements');
+                showOutput('announcementOutput', res);
+            } catch (err) {
+                showOutput('announcementOutput', 'Error: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>

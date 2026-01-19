@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Mess Menu Editor - HMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+
+  <link rel="stylesheet" href="css/modern-style.css?v=6.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Three.js for WebGL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="dashboard-body">
+  <!-- WebGL Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <div class="dashboard-wrapper">
+    <!-- TOPBAR -->
+    <header class="topbar glass">
+      <div class="topbar-title">
+        <span class="hms-badge">HMS</span>
+        <span class="topbar-text">Mess Menu Editor</span>
+      </div>
+      <div class="topbar-actions">
+        <a href="admin.html" class="icon-btn">← Back</a>
+        <button class="icon-btn" id="themeToggle">
+          <span class="theme-icon">🌓</span>
+        </button>
+        <button class="icon-btn" id="logoutBtn">⎋ Logout</button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="mess-editor-container">
+      <div id="mess-editor-root">
+        <!-- Filled by messEditor.js -->
+      </div>
+    </main>
+  </div>
+
+  <!-- CORE JS -->
+  <script src="js/services/authService.js?v=6.0"></script>
+  <script src="js/ui.js?v=6.0"></script>
+  <script src="js/api.js?v=6.0"></script>
+  <script src="js/services/messMenuService.js?v=6.0"></script>
+  <script src="js/messEditor.js?v=6.0"></script>
+
+  <!-- WebGL Animations -->
+  <script src="js/webgl-animations.js"></script>
+</body>
+
+</html>

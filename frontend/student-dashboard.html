@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Dashboard - HMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/modern-style.css" />
+
+  <!-- Three.js for WebGL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="dashboard-body">
+  <!-- WebGL Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <header class="topbar glass">
+    <div class="topbar-title">HMS Student Dashboard</div>
+    <div class="topbar-actions">
+      <button class="theme-toggle-enterprise" id="themeToggle" aria-label="Toggle light/dark mode">
+        <span class="theme-icon" aria-hidden="true">🌓</span>
+        <span class="hidden sm:inline">Theme</span>
+      </button>
+      <button class="icon-btn" id="logoutBtn">⎋ Logout</button>
+    </div>
+  </header>
+
+  <main class="dashboard-layout">
+    <aside class="sidebar glass">
+      <div class="sidebar-section">
+        <h3>Menu</h3>
+        <ul>
+          <li class="active" data-section="profile">Profile</li>
+          <li data-section="fees">Fees</li>
+          <li data-section="complaints">Complaints</li>
+          <li data-section="leaves">Leaves</li>
+          <li data-section="announcements">Announcements</li>
+        </ul>
+      </div>
+    </aside>
+
+    <section class="content-area">
+      <div id="student-root"></div>
+    </section>
+  </main>
+
+  <script src="js/services/authService.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+
+  <script src="js/services/studentService.js"></script>
+  <script src="js/services/feeService.js"></script>
+  <script src="js/services/complaintService.js"></script>
+  <script src="js/services/announcementService.js"></script>
+  <script src="js/services/messMenuService.js"></script>
+  <script src="js/services/leaveService.js"></script>
+  <script src="js/services/attendanceService.js"></script>
+
+  <script src="js/components.js"></script>
+  <script src="js/student.js"></script>
+
+  <!-- WebGL Animations -->
+  <script src="js/webgl-animations.js"></script>
+</body>
+
+</html>
