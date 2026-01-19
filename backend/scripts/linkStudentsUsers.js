@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const Student = require("../models/student.model");
 
-const dbURI =
-  "mongodb+srv://hms_user:HmsProject2024@cluster0.hw9rlka.mongodb.net/hms?retryWrites=true&w=majority&appName=Cluster0";
+const path = require('path');
+require("dotenv").config({ path: path.resolve(__dirname, '../.env') });
+
+const dbURI = process.env.MONGODB_URI;
 
 async function run() {
   await mongoose.connect(dbURI);

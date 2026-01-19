@@ -9,8 +9,11 @@ const mongoose = require('mongoose');
 const Fee = require('../models/fee.model');
 const Student = require('../models/student.model');
 
-// MongoDB URI from server.js
-const MONGO_URI = "mongodb+srv://hms_user:HmsProject2024@cluster0.hw9rlka.mongodb.net/hms?retryWrites=true&w=majority&appName=Cluster0";
+const path = require('path');
+require("dotenv").config({ path: path.resolve(__dirname, '../.env') });
+
+// MongoDB URI from env
+const MONGO_URI = process.env.MONGODB_URI;
 
 async function migrate() {
     console.log('🔧 Fee StudentId Migration Script\n');
