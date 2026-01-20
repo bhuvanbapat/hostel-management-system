@@ -108,7 +108,3 @@ hostel-management-system/
 ## 📄 License
 
 This project is for educational purposes.
-
-## 👤 Author
-
-Made with ❤️ for Hostel Management
